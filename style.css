@@ -31,6 +31,11 @@ body {
   font-weight: bold;
   font-size: 1.2em;
 }
+
+.postion {
+  font-size: smaller;
+  margin-top: -12px;
+}
 .post .header .time {
   margin-left: auto;
   color: #bbbbbb;
