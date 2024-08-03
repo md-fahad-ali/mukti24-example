@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>Forum UI</title>
+  </head>
+  <body>
+    <script>
+      function toggleReplySection() {
+        const replySection = document.getElementById("reply-section");
+        replySection.style.display =
+          replySection.style.display === "flex" ? "none" : "flex";
+      }
+
+      function toggleViewReplies() {
+        const repliesContainer = document.getElementById("replies-container");
+        repliesContainer.style.display =
+          repliesContainer.style.display === "block" ? "none" : "block";
+      }
+
+      function submitReply() {
+        const replyInput = document.querySelector(".reply-input");
+        const repliesContainer = document.getElementById("replies-container");
+
+        if (replyInput.value.trim() !== "") {
+          const newReply = document.createElement("div");
+          newReply.classList.add("reply");
+          newReply.textContent = replyInput.value;
+          repliesContainer.appendChild(newReply);
+          replyInput.value = "";
+        }
+      }
+
+      function previewImage(event) {
+        const file = event.target.files[0];
+        const previewContainer = document.getElementById("image-preview");
+
+        previewContainer.innerHTML = "";
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.classList.add("preview-image"); // Add a class for styling if needed
+            previewContainer.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        }
+        previewContainer.style.display = "block";
+      }
+
+      function previewImageMain(event) {
+        const file = event.target.files[0];
+        const previewContainer = document.getElementById("image-preview-main");
+
+        previewContainer.innerHTML = "";
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.classList.add("preview-image-main"); // Add a class for styling if needed
+            previewContainer.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        }
+        previewContainer.style.display = "block";
+      }
+
+      function previewImageFeed(event) {
+        const file = event.target.files[0];
+        const previewContainer = document.getElementById("image-preview-feed");
+
+        previewContainer.innerHTML = "";
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.classList.add("preview-image-feed");
+            previewContainer.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        }
+        previewContainer.style.display = "block";
+      }
+    </script>
+
+    <div class="container">
+      <div class="post">
+        <h2>যা ইচ্ছে লিখে ফেলো</h2>
+        <div class="flex-container"></div>
+        <div class="user-input">
+          <div class="input-main-container">
+            <label class="profile-label">
+              <img src="profile-image-url.png" alt="" class="profile-image" />
+            </label>
+            <textarea
+              class="comment-main-textarea"
+              placeholder="Write your answer"
+              spellcheck="false"
+            ></textarea>
+            <input
+              type="file"
+              id="file-input-feed"
+              style="display: none"
+              onchange="previewImageFeed(event)"
+            />
+            <div class="button-container">
+              <button
+                class="icon-button"
+                onclick="document.getElementById('file-input-feed').click();"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  class="icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                  ></path>
+                </svg>
+              </button>
+              <button class="icon-button">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  class="icon text-alpha-100 dark:text-alpha"
+                >
+                  <path
+                    d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="image-preview-feed"
+            id="image-preview-feed"
+            style="display: none"
+          ></div>
+        </div>
+      </div>
+      <div class="post">
+        <div class="header">
+          <img src="test.png" alt="User Avatar" />
+          <div class="name">Labib Mushfiq</div>
+          <div class="time">5 days ago</div>
+        </div>
+        <div class="grid-container">
+          <a class="image-link" href="/feed/JiqA3gXRoZRX_zM7?layout=2">
+            <img
+              src="https://assets.chorcha.net/LBQfF2nOJaBNtVXK4yQGX.jpg"
+              alt="Image description"
+              class="image"
+            />
+          </a>
+        </div>
+        <div class="content">
+          <p>বাংলা বায়রকম নিয়ে কি পরীক্ষা দেওয়া যাবে না?</p>
+        </div>
+        <div class="answer">
+          <button class="answer_btn">1 Answers</button>
+        </div>
+        <div class="actions">
+          <button class="review">
+            <i class="fa fa-bookmark-o"></i>
+            <span> Review </span>
+          </button>
+          <button class="share">
+            <i class="fa fa-share-alt"></i>
+            <span> Share </span>
+          </button>
+        </div>
+        <br />
+        <!-- comment section start -->
+        <div>
+          <div class="comment_box">
+            <a class="profile-link" href="/feed#">
+              <img src="profile-image-url.png" alt="" class="profile-image" />
+            </a>
+            <div class="comment_action">
+              <div class="comment_header">
+                <div class="user-info">
+                  <div class="username">
+                    Chorcha<span class="verified-tag">Verified</span>
+                  </div>
+                  <p class="message">Jih jabe</p>
+                </div>
+              </div>
+              <div class="actions_part">
+                <div class="action-buttons">
+                  <button class="action-button" onclick="toggleReplySection()">
+                    Reply
+                  </button>
+                  <button class="action-button" onclick="toggleViewReplies()">
+                    View Replies
+                  </button>
+                  <button class="action-button">Like</button>
+                  <button class="action-button">Report</button>
+                </div>
+              </div>
+
+              <div
+                class="comment-container"
+                id="reply-section"
+                style="display: none"
+              >
+                <label class="profile-label">
+                  <img
+                    src="profile-image-url.png"
+                    alt=""
+                    class="profile-image"
+                  />
+                </label>
+                <textarea
+                  class="comment-textarea"
+                  placeholder="Write your answer"
+                  spellcheck="false"
+                ></textarea>
+                <input
+                  type="file"
+                  id="file-input-reply"
+                  style="display: none"
+                  onchange="previewImage(event)"
+                />
+
+                <div class="button-container">
+                  <button
+                    class="icon-button"
+                    onclick="document.getElementById('file-input-reply').click();"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                      class="icon"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                      ></path>
+                    </svg>
+                  </button>
+                  <button class="icon-button">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                      class="icon text-alpha-100 dark:text-alpha"
+                    >
+                      <path
+                        d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="image-preview"
+                id="image-preview"
+                style="display: none"
+              ></div>
+
+              <div class="replies-container" id="replies-container">
+                <!-- Replies will be added here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comment-main-container">
+          <label class="profile-label">
+            <img src="profile-image-url.png" alt="" class="profile-image" />
+          </label>
+          <textarea
+            class="comment-main-textarea"
+            placeholder="Write your answer"
+            spellcheck="false"
+          ></textarea>
+          <input
+            type="file"
+            id="file-input-main"
+            style="display: none"
+            onchange="previewImageMain(event)"
+          />
+          <div class="button-container">
+            <button
+              class="icon-button"
+              onclick="document.getElementById('file-input-main').click();"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+                class="icon"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                ></path>
+              </svg>
+            </button>
+            <button class="icon-button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+                class="icon text-alpha-100 dark:text-alpha"
+              >
+                <path
+                  d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div
+          class="image-preview-main"
+          id="image-preview-main"
+          style="display: none"
+        ></div>
+      </div>
+    </div>
+  </body>
+</html>
