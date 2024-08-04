@@ -92,8 +92,14 @@
       }
 
       function commentsBoxOpen() {
-        const commentsBox = document.getElementById("comments-box");
-        commentsBox.style.display = "block";
+        document.querySelector("#comments-box").style.display = "flex";
+      }
+
+      function commentsBoxOpenModal() {
+        document.querySelector("#myModal").style.display = "block";
+      }
+      function commentsBoxOff() {
+        document.querySelector("#myModal").style.display = "none";
       }
     </script>
 
@@ -201,37 +207,771 @@
         <br />
         <!-- comment section start -->
         <div>
-          <div class="comment_box" id="comments-box" style="display: none">
-            <a class="profile-link" href="/feed#">
-              <img src="profile-image-url.png" alt="" class="profile-image" />
-            </a>
-            <div class="comment_action">
-              <div class="comment_header">
-                <div class="user-info">
-                  <div class="username">
-                    Chorcha<span class="verified-tag">Verified</span>
+          <div class="comment_box_positon" id="comments-box" style="display: none">
+            <button class="view_more_comments" onclick="commentsBoxOpenModal()">
+              view more comments
+            </button>
+            <div class="make_comments">
+              <a class="profile-link" href="/feed#">
+                <img src="profile-image-url.png" alt="" class="profile-image" />
+              </a>
+              <div class="comment_action">
+                <div class="comment_header">
+                  <div class="user-info">
+                    <div class="username">
+                      Chorcha<span class="verified-tag">Verified</span>
+                    </div>
+                    <p class="message">Jih jabe</p>
                   </div>
-                  <p class="message">Jih jabe</p>
                 </div>
-              </div>
-              <div class="actions_part">
-                <div class="action-buttons">
-                  <button class="action-button" onclick="toggleReplySection()">
-                    Reply
-                  </button>
-                  <button class="action-button" onclick="toggleViewReplies()">
-                    View Replies
-                  </button>
-                  <button class="action-button">Like</button>
-                  <button class="action-button">Report</button>
+                <div class="actions_part">
+                  <div class="action-buttons">
+                    <button
+                      class="action-button"
+                      onclick="toggleReplySection()"
+                    >
+                      Reply
+                    </button>
+                    <button class="action-button" onclick="toggleViewReplies()">
+                      View Replies
+                    </button>
+                    <button class="action-button">Like</button>
+                    <button class="action-button">Report</button>
+                  </div>
                 </div>
-              </div>
 
+                <div
+                  class="comment-container"
+                  id="reply-section"
+                  style="display: none"
+                >
+                  <label class="profile-label">
+                    <img
+                      src="profile-image-url.png"
+                      alt=""
+                      class="profile-image"
+                    />
+                  </label>
+                  <textarea
+                    class="comment-textarea"
+                    placeholder="Write your answer"
+                    spellcheck="false"
+                  ></textarea>
+                  <input
+                    type="file"
+                    id="file-input-reply"
+                    style="display: none"
+                    onchange="previewImage(event)"
+                  />
+
+                  <div class="button-container">
+                    <button
+                      class="icon-button"
+                      onclick="document.getElementById('file-input-reply').click();"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                        class="icon"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                        ></path>
+                      </svg>
+                    </button>
+                    <button class="icon-button">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                        class="icon text-alpha-100 dark:text-alpha"
+                      >
+                        <path
+                          d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="image-preview"
+                  id="image-preview"
+                  style="display: none"
+                ></div>
+
+                <div class="replies-container" id="replies-container">
+                  <!-- Replies will be added here -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="myModal" class="modal" style="display: none">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="">Md Rana's Post</h3>
+              <span class="close" onclick="commentsBoxOff()">&times;</span>
+            </div>
+            <div class="comments-section">
+              <div class="comment_box" id="comments-box">
+                <a class="profile-link" href="/feed#">
+                  <img
+                    src="profile-image-url.png"
+                    alt=""
+                    class="profile-image"
+                  />
+                </a>
+                <div class="comment_action">
+                  <div class="comment_header">
+                    <div class="user-info">
+                      <div class="username">
+                        Chorcha<span class="verified-tag">Verified</span>
+                      </div>
+                      <p class="message">Jih jabe</p>
+                    </div>
+                  </div>
+                  <div class="actions_part">
+                    <div class="action-buttons">
+                      <button
+                        class="action-button"
+                        onclick="toggleReplySection()"
+                      >
+                        Reply
+                      </button>
+                      <button
+                        class="action-button"
+                        onclick="toggleViewReplies()"
+                      >
+                        View Replies
+                      </button>
+                      <button class="action-button">Like</button>
+                      <button class="action-button">Report</button>
+                    </div>
+                  </div>
+
+                  <div
+                    class="comment-container"
+                    id="reply-section"
+                    style="display: none"
+                  >
+                    <label class="profile-label">
+                      <img
+                        src="profile-image-url.png"
+                        alt=""
+                        class="profile-image"
+                      />
+                    </label>
+                    <textarea
+                      class="comment-textarea"
+                      placeholder="Write your answer"
+                      spellcheck="false"
+                    ></textarea>
+                    <input
+                      type="file"
+                      id="file-input-reply"
+                      style="display: none"
+                      onchange="previewImage(event)"
+                    />
+
+                    <div class="button-container">
+                      <button
+                        class="icon-button"
+                        onclick="document.getElementById('file-input-reply').click();"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          aria-hidden="true"
+                          class="icon"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                          ></path>
+                        </svg>
+                      </button>
+                      <button class="icon-button">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          aria-hidden="true"
+                          class="icon text-alpha-100 dark:text-alpha"
+                        >
+                          <path
+                            d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
+                          ></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="image-preview"
+                    id="image-preview"
+                    style="display: none"
+                  ></div>
+
+                  <div class="replies-container" id="replies-container">
+                    <!-- Replies will be added here -->
+                  </div>
+                </div>
+              </div>
+              <div class="comment_box" id="comments-box">
+                <a class="profile-link" href="/feed#">
+                  <img
+                    src="profile-image-url.png"
+                    alt=""
+                    class="profile-image"
+                  />
+                </a>
+                <div class="comment_action">
+                  <div class="comment_header">
+                    <div class="user-info">
+                      <div class="username">
+                        Chorcha<span class="verified-tag">Verified</span>
+                      </div>
+                      <p class="message">Jih jabe</p>
+                    </div>
+                  </div>
+                  <div class="actions_part">
+                    <div class="action-buttons">
+                      <button
+                        class="action-button"
+                        onclick="toggleReplySection()"
+                      >
+                        Reply
+                      </button>
+                      <button
+                        class="action-button"
+                        onclick="toggleViewReplies()"
+                      >
+                        View Replies
+                      </button>
+                      <button class="action-button">Like</button>
+                      <button class="action-button">Report</button>
+                    </div>
+                  </div>
+
+                  <div
+                    class="comment-container"
+                    id="reply-section"
+                    style="display: none"
+                  >
+                    <label class="profile-label">
+                      <img
+                        src="profile-image-url.png"
+                        alt=""
+                        class="profile-image"
+                      />
+                    </label>
+                    <textarea
+                      class="comment-textarea"
+                      placeholder="Write your answer"
+                      spellcheck="false"
+                    ></textarea>
+                    <input
+                      type="file"
+                      id="file-input-reply"
+                      style="display: none"
+                      onchange="previewImage(event)"
+                    />
+
+                    <div class="button-container">
+                      <button
+                        class="icon-button"
+                        onclick="document.getElementById('file-input-reply').click();"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          aria-hidden="true"
+                          class="icon"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                          ></path>
+                        </svg>
+                      </button>
+                      <button class="icon-button">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          aria-hidden="true"
+                          class="icon text-alpha-100 dark:text-alpha"
+                        >
+                          <path
+                            d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
+                          ></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="image-preview"
+                    id="image-preview"
+                    style="display: none"
+                  ></div>
+
+                  <div class="replies-container" id="replies-container">
+                    <!-- Replies will be added here -->
+                  </div>
+                </div>
+              </div>
+              <div class="comment_box" id="comments-box">
+                <a class="profile-link" href="/feed#">
+                  <img
+                    src="profile-image-url.png"
+                    alt=""
+                    class="profile-image"
+                  />
+                </a>
+                <div class="comment_action">
+                  <div class="comment_header">
+                    <div class="user-info">
+                      <div class="username">
+                        Chorcha<span class="verified-tag">Verified</span>
+                      </div>
+                      <p class="message">Jih jabe</p>
+                    </div>
+                  </div>
+                  <div class="actions_part">
+                    <div class="action-buttons">
+                      <button
+                        class="action-button"
+                        onclick="toggleReplySection()"
+                      >
+                        Reply
+                      </button>
+                      <button
+                        class="action-button"
+                        onclick="toggleViewReplies()"
+                      >
+                        View Replies
+                      </button>
+                      <button class="action-button">Like</button>
+                      <button class="action-button">Report</button>
+                    </div>
+                  </div>
+
+                  <div
+                    class="comment-container"
+                    id="reply-section"
+                    style="display: none"
+                  >
+                    <label class="profile-label">
+                      <img
+                        src="profile-image-url.png"
+                        alt=""
+                        class="profile-image"
+                      />
+                    </label>
+                    <textarea
+                      class="comment-textarea"
+                      placeholder="Write your answer"
+                      spellcheck="false"
+                    ></textarea>
+                    <input
+                      type="file"
+                      id="file-input-reply"
+                      style="display: none"
+                      onchange="previewImage(event)"
+                    />
+
+                    <div class="button-container">
+                      <button
+                        class="icon-button"
+                        onclick="document.getElementById('file-input-reply').click();"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          aria-hidden="true"
+                          class="icon"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                          ></path>
+                        </svg>
+                      </button>
+                      <button class="icon-button">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          aria-hidden="true"
+                          class="icon text-alpha-100 dark:text-alpha"
+                        >
+                          <path
+                            d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
+                          ></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="image-preview"
+                    id="image-preview"
+                    style="display: none"
+                  ></div>
+
+                  <div class="replies-container" id="replies-container">
+                    <!-- Replies will be added here -->
+                  </div>
+                </div>
+              </div>
+              <div class="comment_box" id="comments-box">
+                <a class="profile-link" href="/feed#">
+                  <img
+                    src="profile-image-url.png"
+                    alt=""
+                    class="profile-image"
+                  />
+                </a>
+                <div class="comment_action">
+                  <div class="comment_header">
+                    <div class="user-info">
+                      <div class="username">
+                        Chorcha<span class="verified-tag">Verified</span>
+                      </div>
+                      <p class="message">Jih jabe</p>
+                    </div>
+                  </div>
+                  <div class="actions_part">
+                    <div class="action-buttons">
+                      <button
+                        class="action-button"
+                        onclick="toggleReplySection()"
+                      >
+                        Reply
+                      </button>
+                      <button
+                        class="action-button"
+                        onclick="toggleViewReplies()"
+                      >
+                        View Replies
+                      </button>
+                      <button class="action-button">Like</button>
+                      <button class="action-button">Report</button>
+                    </div>
+                  </div>
+
+                  <div
+                    class="comment-container"
+                    id="reply-section"
+                    style="display: none"
+                  >
+                    <label class="profile-label">
+                      <img
+                        src="profile-image-url.png"
+                        alt=""
+                        class="profile-image"
+                      />
+                    </label>
+                    <textarea
+                      class="comment-textarea"
+                      placeholder="Write your answer"
+                      spellcheck="false"
+                    ></textarea>
+                    <input
+                      type="file"
+                      id="file-input-reply"
+                      style="display: none"
+                      onchange="previewImage(event)"
+                    />
+
+                    <div class="button-container">
+                      <button
+                        class="icon-button"
+                        onclick="document.getElementById('file-input-reply').click();"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          aria-hidden="true"
+                          class="icon"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                          ></path>
+                        </svg>
+                      </button>
+                      <button class="icon-button">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          aria-hidden="true"
+                          class="icon text-alpha-100 dark:text-alpha"
+                        >
+                          <path
+                            d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
+                          ></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="image-preview"
+                    id="image-preview"
+                    style="display: none"
+                  ></div>
+
+                  <div class="replies-container" id="replies-container">
+                    <!-- Replies will be added here -->
+                  </div>
+                </div>
+              </div>
+              <div class="comment_box" id="comments-box">
+                <a class="profile-link" href="/feed#">
+                  <img
+                    src="profile-image-url.png"
+                    alt=""
+                    class="profile-image"
+                  />
+                </a>
+                <div class="comment_action">
+                  <div class="comment_header">
+                    <div class="user-info">
+                      <div class="username">
+                        Chorcha<span class="verified-tag">Verified</span>
+                      </div>
+                      <p class="message">Jih jabe</p>
+                    </div>
+                  </div>
+                  <div class="actions_part">
+                    <div class="action-buttons">
+                      <button
+                        class="action-button"
+                        onclick="toggleReplySection()"
+                      >
+                        Reply
+                      </button>
+                      <button
+                        class="action-button"
+                        onclick="toggleViewReplies()"
+                      >
+                        View Replies
+                      </button>
+                      <button class="action-button">Like</button>
+                      <button class="action-button">Report</button>
+                    </div>
+                  </div>
+
+                  <div
+                    class="comment-container"
+                    id="reply-section"
+                    style="display: none"
+                  >
+                    <label class="profile-label">
+                      <img
+                        src="profile-image-url.png"
+                        alt=""
+                        class="profile-image"
+                      />
+                    </label>
+                    <textarea
+                      class="comment-textarea"
+                      placeholder="Write your answer"
+                      spellcheck="false"
+                    ></textarea>
+                    <input
+                      type="file"
+                      id="file-input-reply"
+                      style="display: none"
+                      onchange="previewImage(event)"
+                    />
+
+                    <div class="button-container">
+                      <button
+                        class="icon-button"
+                        onclick="document.getElementById('file-input-reply').click();"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          aria-hidden="true"
+                          class="icon"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                          ></path>
+                        </svg>
+                      </button>
+                      <button class="icon-button">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          aria-hidden="true"
+                          class="icon text-alpha-100 dark:text-alpha"
+                        >
+                          <path
+                            d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
+                          ></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="image-preview"
+                    id="image-preview"
+                    style="display: none"
+                  ></div>
+
+                  <div class="replies-container" id="replies-container">
+                    <!-- Replies will be added here -->
+                  </div>
+                </div>
+              </div>
+              <div class="comment_box" id="comments-box">
+                <a class="profile-link" href="/feed#">
+                  <img
+                    src="profile-image-url.png"
+                    alt=""
+                    class="profile-image"
+                  />
+                </a>
+                <div class="comment_action">
+                  <div class="comment_header">
+                    <div class="user-info">
+                      <div class="username">
+                        Chorcha<span class="verified-tag">Verified</span>
+                      </div>
+                      <p class="message">Jih jabe</p>
+                    </div>
+                  </div>
+                  <div class="actions_part">
+                    <div class="action-buttons">
+                      <button
+                        class="action-button"
+                        onclick="toggleReplySection()"
+                      >
+                        Reply
+                      </button>
+                      <button
+                        class="action-button"
+                        onclick="toggleViewReplies()"
+                      >
+                        View Replies
+                      </button>
+                      <button class="action-button">Like</button>
+                      <button class="action-button">Report</button>
+                    </div>
+                  </div>
+
+                  <div
+                    class="comment-container"
+                    id="reply-section"
+                    style="display: none"
+                  >
+                    <label class="profile-label">
+                      <img
+                        src="profile-image-url.png"
+                        alt=""
+                        class="profile-image"
+                      />
+                    </label>
+                    <textarea
+                      class="comment-textarea"
+                      placeholder="Write your answer"
+                      spellcheck="false"
+                    ></textarea>
+                    <input
+                      type="file"
+                      id="file-input-reply"
+                      style="display: none"
+                      onchange="previewImage(event)"
+                    />
+
+                    <div class="button-container">
+                      <button
+                        class="icon-button"
+                        onclick="document.getElementById('file-input-reply').click();"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          aria-hidden="true"
+                          class="icon"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                          ></path>
+                        </svg>
+                      </button>
+                      <button class="icon-button">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          aria-hidden="true"
+                          class="icon text-alpha-100 dark:text-alpha"
+                        >
+                          <path
+                            d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
+                          ></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="image-preview"
+                    id="image-preview"
+                    style="display: none"
+                  ></div>
+
+                  <div class="replies-container" id="replies-container">
+                    <!-- Replies will be added here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="comments-box">
               <div
-                class="comment-container"
-                id="reply-section"
+                class="image-preview-main"
+                id="image-preview-main"
                 style="display: none"
-              >
+              ></div>
+              <div class="comment-main-container">
                 <label class="profile-label">
                   <img
                     src="profile-image-url.png"
@@ -240,21 +980,20 @@
                   />
                 </label>
                 <textarea
-                  class="comment-textarea"
+                  class="comment-main-textarea"
                   placeholder="Write your answer"
                   spellcheck="false"
                 ></textarea>
                 <input
                   type="file"
-                  id="file-input-reply"
+                  id="file-input-main"
                   style="display: none"
-                  onchange="previewImage(event)"
+                  onchange="previewImageMain(event)"
                 />
-
                 <div class="button-container">
                   <button
                     class="icon-button"
-                    onclick="document.getElementById('file-input-reply').click();"
+                    onclick="document.getElementById('file-input-main').click();"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -286,15 +1025,6 @@
                     </svg>
                   </button>
                 </div>
-              </div>
-              <div
-                class="image-preview"
-                id="image-preview"
-                style="display: none"
-              ></div>
-
-              <div class="replies-container" id="replies-container">
-                <!-- Replies will be added here -->
               </div>
             </div>
           </div>
