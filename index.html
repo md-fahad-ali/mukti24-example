@@ -90,6 +90,11 @@
         }
         previewContainer.style.display = "block";
       }
+
+      function commentsBoxOpen() {
+        const commentsBox = document.getElementById("comments-box");
+        commentsBox.style.display = "block";
+      }
     </script>
 
     <div class="container">
@@ -184,6 +189,10 @@
             <i class="fa fa-bookmark-o"></i>
             <span> Review </span>
           </button>
+          <button class="review" id="commentsBox" onclick="commentsBoxOpen()">
+            <i class="fa fa-comment-o"></i>
+            <span> Comments </span>
+          </button>
           <button class="share">
             <i class="fa fa-share-alt"></i>
             <span> Share </span>
@@ -192,7 +201,7 @@
         <br />
         <!-- comment section start -->
         <div>
-          <div class="comment_box">
+          <div class="comment_box" id="comments-box" style="display: none">
             <a class="profile-link" href="/feed#">
               <img src="profile-image-url.png" alt="" class="profile-image" />
             </a>
