@@ -31,7 +31,8 @@
       .profile-card .left {
         width: 30%;
         text-align: center;
-        background-color: #e74c3c;
+        background: url("./background.jpeg");
+        background-size: cover;
         color: #fff;
       }
       .profile-card .left img {
@@ -80,12 +81,12 @@
         align-items: center;
       }
       .details-info h3::after {
-        content: "\25B2";
+        content: "";
         margin-left: 10px;
         transition: transform 0.3s;
       }
       .details-info h3.open::after {
-        content: "\25BC";
+        content: "";
       }
       .details-info table {
         width: 100%;
@@ -118,10 +119,19 @@
           padding: 0;
           text-align: center;
         }
+        .details-info h3::after {
+          content: "\25B2";
+          margin-left: 10px;
+          transition: transform 0.3s;
+        }
+        .details-info h3.open::after {
+          content: "\25BC";
+        }
         .profile-card .left {
           width: 100%;
-          background-color: #e74c3c;
+          background: url("./background.jpeg");
           color: #fff;
+          background-size: cover;
         }
         .profile-card .left img {
           width: 120px;
@@ -161,32 +171,20 @@
             </h3>
             <table id="details-info-content">
               <tr>
-                <th>SSC Roll</th>
-                <td>173089</td>
+                <th>Division</th>
+                <td>Dhaka</td>
               </tr>
               <tr>
-                <th>SSC Board</th>
-                <td>Chittagong</td>
+                <th>District</th>
+                <td>Dhaka</td>
               </tr>
               <tr>
-                <th>SSC Year</th>
-                <td>2018</td>
+                <th>Blood Group</th>
+                <td>a+</td>
               </tr>
               <tr>
-                <th>HSC Roll</th>
-                <td>159791</td>
-              </tr>
-              <tr>
-                <th>HSC Board</th>
-                <td>Comilla</td>
-              </tr>
-              <tr>
-                <th>HSC Year</th>
-                <td>2020</td>
-              </tr>
-              <tr>
-                <th>Reg No</th>
-                <td>1511741361</td>
+                <th>Facebook Profile</th>
+                <td>https://facebook.com/i.me.fahad.ali</td>
               </tr>
             </table>
           </div>
