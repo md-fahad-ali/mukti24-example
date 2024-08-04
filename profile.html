@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile System</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #191919; /* Whole background is black */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .container {
+        background-color: #353434;
+        width: 90%;
+        max-width: 900px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      .profile-card {
+        display: flex;
+        padding: 20px;
+        flex-direction: row;
+      }
+      .profile-card .left {
+        width: 30%;
+        text-align: center;
+        background-color: #e74c3c;
+        color: #fff;
+      }
+      .profile-card .left img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 5px solid #fff;
+        margin-top: 20px;
+      }
+      .profile-card .left .profile-info {
+        padding: 10px 0;
+      }
+      .profile-card .left .profile-info h2 {
+        margin: 10px 0 5px 0;
+        color: #fff;
+      }
+      .profile-card .left .profile-info p {
+        margin: 5px 0;
+        color: #fff;
+      }
+      .profile-card .right {
+        width: 70%;
+        padding-left: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #353434;
+        padding: 20px;
+      }
+      .profile-card .right .contact-no {
+        color: #555;
+        font-weight: bold;
+      }
+      .details-info {
+        padding: 20px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+      }
+      .details-info h3 {
+        margin: 0 0 10px 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+      .details-info h3::after {
+        content: "\25B2";
+        margin-left: 10px;
+        transition: transform 0.3s;
+      }
+      .details-info h3.open::after {
+        content: "\25BC";
+      }
+      .details-info table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .details-info table,
+      .details-info th,
+      .details-info td {
+        color: white;
+      }
+      .details-info th,
+      .details-info td {
+        padding: 10px;
+        text-align: left;
+      }
+      .details-info tr:nth-child(odd) {
+        background-color: #504f4f;
+      }
+      .details-info tr:nth-child(even) {
+        background-color: #2d2c2c;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          max-width: 100%;
+          border-radius: 0;
+        }
+        .profile-card {
+          flex-direction: column;
+          padding: 0;
+          text-align: center;
+        }
+        .profile-card .left {
+          width: 100%;
+          background-color: #e74c3c;
+          color: #fff;
+        }
+        .profile-card .left img {
+          width: 120px;
+          height: 120px;
+          margin-bottom: 10px;
+        }
+        .profile-card .left .profile-info h2 {
+          color: #fff;
+        }
+        .profile-card .right {
+          width: 100%;
+          padding: 0;
+        }
+        .details-info h3 {
+          cursor: pointer;
+        }
+        .details-info table {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="profile-card">
+        <div class="left">
+          <img src="https://via.placeholder.com/120" alt="Profile Image" />
+          <div class="profile-info">
+            <h2>MEHEDI HASAN</h2>
+            <b>Cantonment Public School and College</b>
+          </div>
+        </div>
+        <div class="right">
+          <div class="details-info">
+            <h3 onclick="toggleDetails()" id="details-info-toggle">
+              Details Info
+            </h3>
+            <table id="details-info-content">
+              <tr>
+                <th>SSC Roll</th>
+                <td>173089</td>
+              </tr>
+              <tr>
+                <th>SSC Board</th>
+                <td>Chittagong</td>
+              </tr>
+              <tr>
+                <th>SSC Year</th>
+                <td>2018</td>
+              </tr>
+              <tr>
+                <th>HSC Roll</th>
+                <td>159791</td>
+              </tr>
+              <tr>
+                <th>HSC Board</th>
+                <td>Comilla</td>
+              </tr>
+              <tr>
+                <th>HSC Year</th>
+                <td>2020</td>
+              </tr>
+              <tr>
+                <th>Reg No</th>
+                <td>1511741361</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function toggleDetails() {
+        var content = document.getElementById("details-info-content");
+        var toggleButton = document.getElementById("details-info-toggle");
+
+        if (window.innerWidth <= 768) {
+          if (
+            content.style.display === "none" ||
+            content.style.display === ""
+          ) {
+            content.style.display = "table";
+            toggleButton.classList.add("open");
+          } else {
+            content.style.display = "none";
+            toggleButton.classList.remove("open");
+          }
+        }
+      }
+
+      window.onload = function () {
+        var content = document.getElementById("details-info-content");
+        if (window.innerWidth > 768) {
+          content.style.display = "table";
+        }
+      };
+
+      window.onresize = function () {
+        var content = document.getElementById("details-info-content");
+        if (window.innerWidth > 768) {
+          content.style.display = "table";
+        } else {
+          content.style.display = "none";
+        }
+      };
+    </script>
+  </body>
+</html>
