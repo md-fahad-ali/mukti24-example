@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+    <script>
+      function updateImage() {
+        var image = document.getElementById("responsive-image");
+        if (window.matchMedia("(max-width: 768px)").matches) {
+          image.src = "./mobile.svg"; // Replace with the URL of the smaller image
+        } else {
+          image.src = "./image.svg"; // Replace with the URL of the larger image
+        }
+      }
+
+      // Call updateImage on DOMContentLoaded
+      document.addEventListener("DOMContentLoaded", function () {
+        updateImage();
+      });
+
+      // Update image on window resize
+      window.addEventListener("resize", updateImage);
+    </script>
+    <div class="container">
+      <div class="left">
+        <img id="responsive-image" src="your-image-url.png" alt="Image" />
+      </div>
+      <div class="right">
+        <h2>Registration Form</h2>
+        <br />
+        <form>
+          <div class="form-group">
+            <input type="email" id="email" placeholder=" " required />
+            <label for="email">Email</label>
+          </div>
+          <br />
+          <div class="form-group">
+            <input type="password" id="password" placeholder=" " required />
+            <label for="password">Password</label>
+          </div>
+          <br />
+          <button type="submit">Register</button>
+        </form>
+        <a href="#">Not a member? Create Account</a>
+      </div>
+    </div>
+  </body>
+</html>

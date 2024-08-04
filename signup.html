@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="signup.css" />
+  </head>
+  <body>
+    <script>
+      function updateImage() {
+        var image = document.getElementById("responsive-image");
+        if (window.matchMedia("(max-width: 768px)").matches) {
+          image.src = "./mobile.svg";
+        } else {
+          image.src = "./image.svg";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        updateImage();
+      });
+
+      window.addEventListener("resize", updateImage);
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const districts = [
+          "Bandarban",
+          "Barguna",
+          "Barisal",
+          "Bagerhat",
+          "Bandra",
+          "Brahmanbaria",
+          "Brahmanbaria",
+          "Chandpur",
+          "Chattogram",
+          "Chuadanga",
+          "Cox's Bazar",
+          "Dhaka",
+          "Dinajpur",
+          "Faridpur",
+          "Feni",
+          "Gaibandha",
+          "Gazipur",
+          "Gopalganj",
+          "Habiganj",
+          "Jamalpur",
+          "Jashore",
+          "Jatiyo Sangsad Bhaban",
+          "Jhalokati",
+          "Jhenidah",
+          "Joypurhat",
+          "Khagrachari",
+          "Khulna",
+          "Kishoreganj",
+          "Kurigram",
+          "Kushtia",
+          "Lakshmipur",
+          "Lalmonirhat",
+          "Madaripur",
+          "Magura",
+          "Manikganj",
+          "Meherpur",
+          "Moulvibazar",
+          "Mymensingh",
+          "Naogaon",
+          "Narail",
+          "Narayanganj",
+          "Narsingdi",
+          "Narsingdi",
+          "Natore",
+          "Natore",
+          "Netrokona",
+          "Nilphamari",
+          "Noakhali",
+          "Pabna",
+          "Panchagarh",
+          "Patuakhali",
+          "Patuakhali",
+          "Pirojpur",
+          "Rajbari",
+          "Rajshahi",
+          "Rangamati",
+          "Rangpur",
+          "Satkhira",
+          "Shariatpur",
+          "Sherpur",
+          "Sirajganj",
+          "Sunamganj",
+          "Sylhet",
+          "Tangail",
+          "Thakurgaon",
+          "Thakurgaon",
+        ];
+        const districtInput = document.getElementById("district");
+        const suggestionsContainer = document.createElement("div");
+        suggestionsContainer.className = "autocomplete-suggestions";
+        districtInput.parentNode.appendChild(suggestionsContainer);
+
+        function showSuggestions() {
+          suggestionsContainer.style.display = "block";
+        }
+
+        function hideSuggestions() {
+          suggestionsContainer.style.display = "none";
+        }
+
+        districtInput.addEventListener("input", function () {
+          const value = this.value.toLowerCase();
+          suggestionsContainer.innerHTML = "";
+          if (value) {
+            const filteredDistricts = districts.filter((district) =>
+              district.toLowerCase().startsWith(value)
+            );
+            filteredDistricts.forEach((district) => {
+              const suggestionItem = document.createElement("div");
+              suggestionItem.className = "autocomplete-suggestion";
+              suggestionItem.textContent = district;
+              suggestionItem.addEventListener("click", function () {
+                districtInput.value = district;
+                hideSuggestions();
+              });
+              suggestionsContainer.appendChild(suggestionItem);
+            });
+            showSuggestions();
+          } else {
+            hideSuggestions();
+          }
+        });
+
+        document.addEventListener("click", function (event) {
+          if (
+            !districtInput.contains(event.target) &&
+            !suggestionsContainer.contains(event.target)
+          ) {
+            hideSuggestions();
+          }
+        });
+
+        const form = document.querySelector("form");
+        form.addEventListener("submit", function (event) {
+          if (!districts.includes(districtInput.value)) {
+            event.preventDefault();
+            alert("Please select a valid district from the suggestions.");
+          }
+        });
+      });
+    </script>
+    <div class="container">
+      <div class="left">
+        <img id="responsive-image" src="your-image-url.png" alt="Image" />
+      </div>
+      <div class="right">
+        <h2>Registration Form</h2>
+        <br />
+        <form>
+          <div class="form-group">
+            <input type="name" id="email" placeholder=" " required />
+            <label for="email">Name</label>
+          </div>
+          <div class="form-group">
+            <input type="password" id="password" placeholder=" " required />
+            <label for="password">Password</label>
+          </div>
+          <div class="form-group">
+            <input type="text" id="district" placeholder=" " required />
+            <label for="district">District</label>
+          </div>
+          <div class="form-group">
+            <input type="name" id="password" placeholder=" " required />
+            <label for="name">Educational Institution</label>
+          </div>
+          <div class="form-group">
+            <input type="name" id="password" placeholder=" " required />
+            <label for="password">Your FB Profile Link</label>
+          </div>
+
+          <button type="submit">Register</button>
+        </form>
+        <a href="#">Not a member? Create Account</a>
+      </div>
+    </div>
+  </body>
+</html>
