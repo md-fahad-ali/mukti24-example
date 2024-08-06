@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bar Chart with D3.js</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+      .bar {
+        fill: red;
+      }
+      .bar-label {
+        fill: white;
+        font-size: 12px;
+        text-anchor: end;
+      }
+      .circle-label {
+        fill: white;
+        font-size: 24px;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      .circle-text {
+        fill: white;
+        font-size: 14px;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      .summary {
+        font-size: 24px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chart"></div>
+
+    <script>
+      // Sample data
+      const data = [
+        { date: "16 July, Tuesday", deaths: 6 },
+        { date: "18 July, Thursday", deaths: 42 },
+        { date: "19 July, Friday", deaths: 88 },
+        { date: "20 July, Saturday", deaths: 38 },
+        { date: "21 July, Sunday", deaths: 31 },
+        { date: "22 July, Monday", deaths: 6 },
+        { date: "23 July, Tuesday", deaths: 8 },
+        { date: "24 July, Wednesday", deaths: 6 },
+        { date: "25 July, Thursday", deaths: 8 },
+        { date: "26 July, Friday", deaths: 1 },
+        { date: "27 July, Saturday", deaths: 1 },
+        { date: "28 July, Sunday", deaths: 1 },
+        { date: "31 July, Wednesday", deaths: 1 },
+        { date: "3 August, Thursday", deaths: 1 },
+        { date: "4 August, Sunday", deaths: 1 },
+        { date: "5 August, Monday", deaths: 114 },
+      ];
+
+      const totalDays = 21;
+      const totalDeaths = d3.sum(data, (d) => d.deaths);
+
+      // Set dimensions and margins
+      const margin = { top: 20, right: 200, bottom: 40, left: 150 },
+        width = 960 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
+
+      // Append SVG object to the body of the page
+      const svg = d3
+        .select("#chart")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      // X axis
+      const x = d3
+        .scaleLinear()
+        .domain([0, d3.max(data, (d) => d.deaths)])
+        .range([0, width]);
+
+      // Y axis
+      const y = d3
+        .scaleBand()
+        .range([0, height])
+        .domain(data.map((d) => d.date))
+        .padding(0.1);
+
+      svg.append("g").call(d3.axisLeft(y));
+
+      // Bars
+      svg
+        .selectAll(".bar")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("x", x(0))
+        .attr("y", (d) => y(d.date))
+        .attr("width", (d) => x(d.deaths))
+        .attr("height", y.bandwidth());
+
+      // Bar labels
+      svg
+        .selectAll(".bar-label")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "bar-label")
+        .attr("x", (d) => x(d.deaths) - 5)
+        .attr("y", (d) => y(d.date) + y.bandwidth() / 2 + 5)
+        .text((d) => d.deaths);
+
+      // Summary circle on the right
+      const circleRadius = 100;
+      const circleX = width - 10;
+      const circleY = height / 2;
+
+      svg
+        .append("circle")
+        .attr("cx", circleX)
+        .attr("cy", circleY)
+        .attr("r", circleRadius)
+        .attr("fill", "red");
+
+      svg
+        .append("text")
+        .attr("class", "circle-text")
+        .attr("x", circleX)
+        .attr("y", circleY - 30)
+        .text(`${totalDays} Days`);
+
+      svg
+        .append("text")
+        .attr("class", "circle-label")
+        .attr("x", circleX)
+        .attr("y", circleY)
+        .text(totalDeaths);
+
+      svg
+        .append("text")
+        .attr("class", "circle-text")
+        .attr("x", circleX)
+        .attr("y", circleY + 30)
+        .text("Death");
+    </script>
+  </body>
+</html>
